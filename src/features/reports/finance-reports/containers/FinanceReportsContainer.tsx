@@ -13,12 +13,14 @@ import {
 
 import { ChartOptions } from "../components/ChartOptions";
 import { FinanceReportsChart } from "../components/FinanceReportsChart";
+import { SummaryMetric } from "../components/SummaryMetric";
 import {
   chartCategories,
   financeData,
   VALUE_TYPE_OPTIONS,
   type ValueType,
 } from "../mock-data";
+import { summaryMetrics } from "../mock-data/summary-metrics";
 
 function buildChartOption(selected: ValueType[]): EChartsOption | null {
   if (selected.length === 0) {
@@ -59,10 +61,12 @@ export function FinanceReportsContainer() {
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
+
         <ChartOptions
           value={selected}
           onChange={({ value_types }) => setSelected(value_types)}
         />
+        <SummaryMetric metrics={summaryMetrics} />
         <FinanceReportsChart option={option} />
       </CardContent>
     </Card>
