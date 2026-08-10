@@ -26,3 +26,6 @@ Next.js 16.2.6 + TypeScript + shadcn/ui v4 + Tailwind CSS v4.
 4. Use `cn()` from `@/lib/utils` for class merging
 5. Components are Server Components by default — only use `'use client'` when needed
 6. Follow the skills in `.opencode/skills/` for detailed guidance
+
+## Git
+- Never commit automatically. Only commit when the user explicitly asks.
