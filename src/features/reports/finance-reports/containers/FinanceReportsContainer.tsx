@@ -49,6 +49,7 @@ const ALL_VALUE_TYPES = VALUE_TYPE_OPTIONS.map((option) => option.key);
 
 export function FinanceReportsContainer() {
   const [selected, setSelected] = useState<ValueType[]>(ALL_VALUE_TYPES);
+  const [comparePrevious, setComparePrevious] = useState(false);
 
   const option = buildChartOption(selected);
 
@@ -61,12 +62,20 @@ export function FinanceReportsContainer() {
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
-
         <ChartOptions
           value={selected}
-          onChange={({ value_types }) => setSelected(value_types)}
+          comparePrevious={comparePrevious}
+          onChange={({ value_types, compare_previous }) => {
+            setSelected(value_types);
+            setComparePrevious(compare_previous);
+          }}
         />
-        <SummaryMetric metrics={summaryMetrics} />
+        <SummaryMetric
+          metrics={summaryMetrics.map((metric) => ({
+            ...metric,
+            previousValue: comparePrevious ? metric.previousValue : undefined,
+          }))}
+        />
         <FinanceReportsChart option={option} />
       </CardContent>
     </Card>
