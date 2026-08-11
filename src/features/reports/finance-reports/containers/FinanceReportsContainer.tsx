@@ -10,18 +10,20 @@ import {
 } from "@/components/ui/card";
 
 import { ChartOptions } from "../components/ChartOptions";
+import { DateRangePicker } from "../components/DateRangePicker";
 import { FinanceReportsChart } from "../components/FinanceReportsChart";
 import { SummaryMetric } from "../components/SummaryMetric";
 import { useFinanceReport } from "../hooks/useFinanceReport";
-import { VALUE_TYPE_OPTIONS, type ValueType } from "../types";
+import { VALUE_TYPE_OPTIONS, type ValueType, type DateRangeMode } from "../types";
 
 const ALL_VALUE_TYPES = VALUE_TYPE_OPTIONS.map((option) => option.key);
 
 export function FinanceReportsContainer() {
   const [selected, setSelected] = useState<ValueType[]>(ALL_VALUE_TYPES);
   const [comparePrevious, setComparePrevious] = useState(false);
+  const [dateRangeMode, setDateRangeMode] = useState<DateRangeMode>("this_week");
 
-  const { data, loading, error } = useFinanceReport(selected, comparePrevious);
+  const { data, loading, error } = useFinanceReport(selected, comparePrevious, dateRangeMode);
 
   return (
     <Card className="w-full max-w-4xl">
@@ -32,14 +34,17 @@ export function FinanceReportsContainer() {
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
-        <ChartOptions
-          value={selected}
-          comparePrevious={comparePrevious}
-          onChange={({ value_types, compare_previous }) => {
-            setSelected(value_types);
-            setComparePrevious(compare_previous);
-          }}
-        />
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <ChartOptions
+            value={selected}
+            comparePrevious={comparePrevious}
+            onChange={({ value_types, compare_previous }) => {
+              setSelected(value_types);
+              setComparePrevious(compare_previous);
+            }}
+          />
+          <DateRangePicker value={dateRangeMode} onChange={setDateRangeMode} />
+        </div>
 
         {error && (
           <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-4 text-sm text-destructive">

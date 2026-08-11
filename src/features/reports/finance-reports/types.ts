@@ -8,3 +8,5 @@ export const VALUE_TYPE_OPTIONS: ReadonlyArray<{
   { key: "eatclub_revenue", label: "Eatclub Revenue" },
   { key: "labour_cost", label: "Labour Cost" },
 ];
+
+export type DateRangeMode = "this_week" | "this_month" | "last_month";

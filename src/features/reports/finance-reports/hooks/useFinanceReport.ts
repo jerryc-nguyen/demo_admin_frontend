@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { apiClient } from "@/commons/api-client";
 import type { EChartsOption } from "echarts";
-import type { ValueType } from "../types";
+import type { ValueType, DateRangeMode } from "../types";
 
 export interface SummaryMetricData {
   title: string;
@@ -17,7 +17,8 @@ export interface FinanceReportResponse {
 
 export function useFinanceReport(
   valueTypes: ValueType[],
-  comparePrevious: boolean
+  comparePrevious: boolean,
+  dateRangeMode: DateRangeMode
 ) {
   const [data, setData] = useState<FinanceReportResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -37,6 +38,7 @@ export function useFinanceReport(
             params: {
               compare_with_previous: comparePrevious,
               value_types: valueTypes.join(","),
+              date_range_mode: dateRangeMode,
             },
           }
         );
@@ -80,7 +82,7 @@ export function useFinanceReport(
     return () => {
       controller.abort();
     };
-  }, [valueTypes, comparePrevious]);
+  }, [valueTypes, comparePrevious, dateRangeMode]);
 
   return { data, loading, error };
 }
