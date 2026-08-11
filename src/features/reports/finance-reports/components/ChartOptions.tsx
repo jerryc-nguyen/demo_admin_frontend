@@ -3,7 +3,7 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { History } from "lucide-react";
-import { VALUE_TYPE_OPTIONS, type ValueType } from "../mock-data";
+import { VALUE_TYPE_OPTIONS, type ValueType } from "../types";
 
 interface ChartOptionsProps {
   value: ValueType[];
