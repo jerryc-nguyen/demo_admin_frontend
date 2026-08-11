@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import {
   Card,
   CardContent,
@@ -8,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 import { ChartOptions } from "../components/ChartOptions";
 import { DateRangePicker } from "../components/DateRangePicker";
@@ -27,11 +29,18 @@ export function FinanceReportsContainer() {
 
   return (
     <Card className="w-full max-w-4xl">
-      <CardHeader>
-        <CardTitle>Finance Reports</CardTitle>
-        <CardDescription>
-          Weekly revenue by channel — stacked bar chart
-        </CardDescription>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+        <div>
+          <CardTitle>Finance Reports</CardTitle>
+          <CardDescription>
+            Weekly revenue by channel — stacked bar chart
+          </CardDescription>
+        </div>
+        <Link href="/reports/report-data-management" passHref>
+          <Button variant="outline" size="sm" className="cursor-pointer">
+            Manage Data
+          </Button>
+        </Link>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
