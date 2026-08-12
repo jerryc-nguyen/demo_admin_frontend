@@ -4,13 +4,17 @@ import React, { useRef, useEffect, useState } from "react";
 import type { EChartsOption } from "echarts";
 import ReactECharts from "echarts-for-react";
 
+interface EChartsInstance {
+  resize: () => void;
+}
+
 interface FinanceReportsChartProps {
   option: EChartsOption | null;
 }
 
 export function FinanceReportsChart({ option }: FinanceReportsChartProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [chartInstance, setChartInstance] = useState<any>(null);
+  const [chartInstance, setChartInstance] = useState<EChartsInstance | null>(null);
 
   useEffect(() => {
     if (!chartInstance || !containerRef.current) return;

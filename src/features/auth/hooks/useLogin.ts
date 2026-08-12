@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 import { apiClient } from "@/commons/api-client";
 
 export function useLogin() {
@@ -21,11 +22,16 @@ export function useLogin() {
 
       router.push("/reports/finance-reports");
       router.refresh();
-    } catch (err: any) {
-      if (err.response?.data?.errors) {
-        setError(err.response.data.errors.join(", "));
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        const errors = err.response?.data?.errors;
+        if (Array.isArray(errors)) {
+          setError(errors.join(", "));
+        } else {
+          setError(err.response?.data?.error || "Something went wrong. Please try again.");
+        }
       } else {
-        setError(err.response?.data?.error || "Something went wrong. Please try again.");
+        setError("Something went wrong. Please try again.");
       }
     } finally {
       setLoading(false);

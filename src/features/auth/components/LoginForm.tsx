@@ -100,7 +100,7 @@ export function LoginForm() {
             href="/register"
             className="text-xs font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-50 transition-colors w-full text-center py-2 cursor-pointer"
           >
-            Don't have an account? Sign up
+            Don&apos;t have an account? Sign up
           </Link>
         </CardFooter>
       </form>
