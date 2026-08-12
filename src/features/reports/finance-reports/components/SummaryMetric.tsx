@@ -1,4 +1,4 @@
-import type { SummaryMetric as SummaryMetricData } from "../mock-data/summary-metrics";
+import type { SummaryMetricData } from "../hooks/useFinanceReport";
 import { CardMetric } from "./CardMetric";
 
 interface SummaryMetricProps {

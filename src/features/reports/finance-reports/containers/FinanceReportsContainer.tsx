@@ -45,14 +45,14 @@ export function FinanceReportsContainer() {
   const { data, loading, error } = useFinanceReport(selected, comparePrevious, dateRangeMode);
 
   return (
-    <Card className="w-full max-w-4xl">
+    <Card className="w-full max-w-[1200px]">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
         <div>
           <CardTitle className="text-2xl">{title}</CardTitle>
         </div>
         <Link href="/reports/report-data-management" passHref>
-          <Button variant="outline" size="sm" className="cursor-pointer">
-            Manage Data
+          <Button variant="default" size="lg" className="cursor-pointer">
+            Manage Report Data
           </Button>
         </Link>
       </CardHeader>
