@@ -9,6 +9,12 @@ export function proxy(request: NextRequest) {
   const isAuthRoute = pathname === "/login" || pathname === "/register";
   const isPublicAsset = pathname.startsWith("/_next/") || pathname === "/favicon.ico";
 
+  if (pathname === "/") {
+    return NextResponse.redirect(
+      new URL(token ? "/reports/finance-reports" : "/login", request.url)
+    );
+  }
+
   if (!token && !isAuthRoute && !isPublicAsset && !pathname.startsWith("/api/")) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
