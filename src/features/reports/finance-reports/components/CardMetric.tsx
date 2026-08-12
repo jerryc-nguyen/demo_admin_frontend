@@ -12,11 +12,13 @@ interface CardMetricProps {
 }
 
 const numberFormatter = new Intl.NumberFormat("en-US", {
-  maximumFractionDigits: 2,
+  style: "currency",
+  currency: "USD",
+  maximumFractionDigits: 0,
 });
 
 const percentFormatter = new Intl.NumberFormat("en-US", {
-  maximumFractionDigits: 1,
+  maximumFractionDigits: 0,
 });
 
 function formatPercentChange(value: number, previousValue: number): string | null {
@@ -42,12 +44,12 @@ export function CardMetric({ title, value, previousValue }: CardMetricProps) {
     previousValue != null ? formatPercentChange(value, previousValue) : null;
 
   return (
-    <Card>
+    <Card className="bg-gray-50">
       <CardHeader>
-        <CardTitle>{title}</CardTitle>
+        <CardTitle className='text-muted-foreground'>{title}</CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="text-2xl font-semibold tracking-tight">
+        <p className="text-xl font-semibold tracking-tight">
           {numberFormatter.format(value)}
           {change && (
             <>

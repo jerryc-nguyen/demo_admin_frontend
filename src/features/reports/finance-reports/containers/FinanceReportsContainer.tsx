@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import {
   Card,
@@ -25,16 +25,30 @@ export function FinanceReportsContainer() {
   const [comparePrevious, setComparePrevious] = useState(false);
   const [dateRangeMode, setDateRangeMode] = useState<DateRangeMode>("this_week");
 
+  const dateRangeLabel = useMemo(() => {
+    switch (dateRangeMode) {
+      case "this_month":
+        return "This month";
+      case "last_month":
+        return "Last month";
+      case "this_week":
+      default:
+        return "This week";
+    }
+  }, [dateRangeMode]);
+
+  const title = useMemo(() => {
+    const baseTitle = `${dateRangeLabel} revenue trend`;
+    return comparePrevious ? `${baseTitle} vs Previous Period` : baseTitle;
+  }, [comparePrevious, dateRangeLabel]);
+
   const { data, loading, error } = useFinanceReport(selected, comparePrevious, dateRangeMode);
 
   return (
     <Card className="w-full max-w-4xl">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
         <div>
-          <CardTitle>Finance Reports</CardTitle>
-          <CardDescription>
-            Weekly revenue by channel — stacked bar chart
-          </CardDescription>
+          <CardTitle className="text-2xl">{title}</CardTitle>
         </div>
         <Link href="/reports/report-data-management" passHref>
           <Button variant="outline" size="sm" className="cursor-pointer">
@@ -77,4 +91,3 @@ export function FinanceReportsContainer() {
     </Card>
   );
 }
-
